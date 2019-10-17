@@ -3,15 +3,6 @@ difficulty = 0
 symbols = ['@', '#', '%', '&']
 char_now = ''
 
-print("\n*** Проверка ***")
-
-# проверка на длину
-if (len(password) >= 5):
-    print("Длина: :)")
-    difficulty += 1
-else:
-    print("Длина: :(")
-
 # проверка
 sym_up = 0
 sym_low = 0
@@ -29,8 +20,14 @@ for i in range(len(password)):
     for sym in symbols:
         if (char_now in symbols):
             have_sym = 1
-
-
+            
+print("\n*** Проверка ***")
+if (len(password) >= 5):
+    print("Длина: :)")
+    difficulty += 1
+else:
+    print("Длина: :(")
+    
 if (sym_up and sym_low):
     print("Регистры: :)")
     difficulty += 1
