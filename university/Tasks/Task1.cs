@@ -6,11 +6,11 @@ namespace Task_1
     {
         static void Main(string[] args)
         {
-            int[] a = { 1, 4, 3, 5, 6, 7, 8, 7, -7, 0 }; // 6 нечетных, 4 четных
+            int[] a = { 1, 4, 3, 5, 6, 7, 8, 7, -7, 0 }; // 6 РЅРµС‡РµС‚РЅС‹С…, 4 С‡РµС‚РЅС‹С…
             int[] b = a;
 
-            Console.WriteLine("Четных в A: " + Count(a, true));
-            Console.WriteLine("Нечетных в B: " + Count(b, false));
+            Console.WriteLine("Р§РµС‚РЅС‹С… РІ A: " + Count(a, true));
+            Console.WriteLine("РќРµС‡РµС‚РЅС‹С… РІ B: " + Count(b, false));
             Console.ReadKey();
         }
 
