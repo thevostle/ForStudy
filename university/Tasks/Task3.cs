@@ -6,9 +6,9 @@ namespace Task3
     {
         static void Main(string[] args)
         {
-            int[] a = { 1, 0, 5, 25, 125, -5, 2, 10 }; // 4 степени пятерки
+            int[] a = { 1, 0, 5, 25, 125, -5, 2, 10 }; // 4 СЃС‚РµРїРµРЅРё РїСЏС‚РµСЂРєРё
 
-            Console.WriteLine("Кол-во чисел - степеней пятерки: " + Count(a));
+            Console.WriteLine("РљРѕР»-РІРѕ С‡РёСЃРµР» - СЃС‚РµРїРµРЅРµР№ РїСЏС‚РµСЂРєРё: " + Count(a));
             Console.ReadKey();
         }
 
