@@ -6,9 +6,9 @@ namespace Task_2
     {
         static void Main(string[] args)
         {
-            int[] a = { 1, 4, 3, 9, 25, 7, 8, 7, -9, 0 }; // 5 квадратов
+            int[] a = { 1, 4, 3, 9, 25, 7, 8, 7, -9, 0 }; // 5 РєРІР°РґСЂР°С‚РѕРІ
 
-            Console.WriteLine("Полных квадратов: " + Count(a));
+            Console.WriteLine("РџРѕР»РЅС‹С… РєРІР°РґСЂР°С‚РѕРІ: " + Count(a));
             Console.ReadKey();
         }
 
