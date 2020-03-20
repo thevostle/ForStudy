@@ -7,9 +7,10 @@ namespace Task9
         static void Main(string[] args)
         {
             int number;
+            Console.Write("Введите десятичное число: ");
             number = Convert.ToInt32(Console.ReadLine());
             
-            Console.WriteLine(ConvertToBin(number));
+            Console.WriteLine("Результат: " + ConvertToBin(number));
             Console.ReadKey();
         }
 
