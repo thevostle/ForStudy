@@ -19,17 +19,11 @@ namespace Task10
 
         static bool isPerfect (int number)
         {
-            int local = 0;
-            int memory = number;
-
-            while (local < memory)
-            {
-                local++;
-                if(memory % local == 0 && memory != local)
-                    number -= local;                
-            }
-
-            return number == 0;
+            int sum = 1;
+            if (number == 1) return false;
+            for (int i = 2; i <= (number / 2); i++)
+                if (number % i == 0) sum = sum += i;
+            return sum == number;
         }
     }
 }
