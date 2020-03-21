@@ -21,10 +21,8 @@ namespace Task10
         {
             int sum = 1;
             if (number == 1) return false;
-            for (int i = 2; i <= (number/2); i++)
-            {
+            for (int i = 2; i <= (number / 2); i++)
                 if (number % i == 0) sum = sum += i;
-            }
             return sum == number;
         }
     }
