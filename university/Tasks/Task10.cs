@@ -9,10 +9,8 @@ namespace Task10
             int numMax = 1000;
 
             for (int i = 1; i <= numMax; i++)
-            {
                 if (isPerfect(i))
                     Console.WriteLine(i);
-            }
 
             Console.ReadKey();
         }
