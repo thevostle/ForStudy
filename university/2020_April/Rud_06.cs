@@ -1,8 +1,3 @@
-// Программа не работает!!!
-// Rud_06 Studio v0.1 alpha
-
-
-
 using System;
 
 namespace Rud_06
@@ -12,7 +7,6 @@ namespace Rud_06
         static void Main(string[] args)
         {
             int[][] matrix = new int[6][];
-
             matrix[0] = new int[6] { 1, 1, 2, 2, 1, 1 };
             matrix[1] = new int[6] { 2, 2, 3, 3, 1, 8 };
             matrix[2] = new int[6] { 3, 3, 4, 4, 0, 5 };
@@ -43,13 +37,22 @@ namespace Rud_06
         static void RecreateMatrix(int[][] table)
         {
             int len = table.Length - 1;
-            int[][] copy = table;
+
+            int[][] copy = new int[len + 1][];
+            
+            for (int i = 0; i < len + 1; i++)
+            {
+                copy[i] = new int[table[i].Length];
+                for (int j = 0; j < table[i].Length; j++)
+                    copy[i][j] = table[i][j];
+            }
 
             for (int x = 0; x < table.Length; x++)
                 if (x % 2 == 1)
-                    for (int y = 0; y < len; y++)
+                    for (int y = 0; y <= len; y++)
                         table[y][x] = copy[len-y][x];
             
         }
+
     }
 }
