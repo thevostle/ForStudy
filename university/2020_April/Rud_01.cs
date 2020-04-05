@@ -16,8 +16,6 @@ namespace Rud_01
 
             PrintTable(matrix);
 
-            int len = matrix.Length;
-
             if (CheckRows(matrix) && CheckCollumns(matrix) && CheckDiag(matrix))
                 Console.WriteLine("\nМатрица является магической");
             else
