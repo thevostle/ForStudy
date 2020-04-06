@@ -15,7 +15,7 @@ namespace Rud_08
 
             PrintTable(matrix);
 
-            Console.WriteLine("Кол-во комманд без поражений: ");
+            Console.WriteLine("Кол-во команд без поражений: ");
             GetWinTeams(matrix);
             Console.ReadKey();
         }
