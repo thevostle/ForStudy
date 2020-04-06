@@ -15,7 +15,7 @@ namespace Rud_07
 
             PrintTable(matrix);
 
-            Console.WriteLine("Кол-во комманд, у которых побед больше, чем поражений: " + GetWinTeams(matrix));
+            Console.WriteLine("Кол-во команд, у которых побед больше, чем поражений: " + GetWinTeams(matrix));
             Console.ReadKey();
         }
 
