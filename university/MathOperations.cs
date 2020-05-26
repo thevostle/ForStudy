@@ -21,7 +21,7 @@ namespace CW_MathOperations
             return x1 + x2;
         }
 
-        static double Sub(double x1, double x2) // вычетание
+        static double Sub(double x1, double x2) // вычитание
         {
             return x1 - x2;
         }
