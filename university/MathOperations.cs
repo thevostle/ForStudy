@@ -6,12 +6,45 @@ namespace CW_MathOperations
     {
         static void Main(string[] args)
         {
-            Console.WriteLine(Sum(1.24323, 0.32));
-            Console.WriteLine(Sub(1, 0.32));
-            Console.WriteLine(Multiply(2222222222, 2));
-            Console.WriteLine(Divide(2222222222, 2));
-            Console.WriteLine(Pow(3, 3));
-            Console.WriteLine(Factorial(5));
+
+            // ввод данных
+            Console.WriteLine("Введите число x1: ");
+            double x1 = Convert.ToDouble(Console.ReadLine());
+            Console.WriteLine("Введите число x2: ");
+            double x2 = Convert.ToDouble(Console.ReadLine());
+            
+
+
+            /*    Если программа вычисляет факториал, то ввод данных заменить на...
+             *    
+             *    Console.WriteLine("Введите число x (до 25): ");
+             *    long x = Convert.ToInt64(Console.ReadLine());
+             *    
+             *    x2 не нужен, а X является long переменной.
+             *    если х > 25, он переполняет тип, и результат становится отрицательным.
+             */
+
+
+
+
+            /*    Если программа вычисляет степени, то ввод данных заменить на...
+             *    
+             *   Console.WriteLine("Введите число x1: ");
+             *   double x1 = Convert.ToDouble(Console.ReadLine());
+             *   Console.WriteLine("Введите число x2 (степень): ");
+             *   long x2 = Convert.ToInt64(Console.ReadLine());
+             */
+
+
+
+
+            Console.WriteLine("Результат:\n");
+            Console.WriteLine(Sum(x1, x2));
+            Console.WriteLine(Sub(x1, x2));
+            Console.WriteLine(Multiply(x1, x2));
+            Console.WriteLine(Divide(x1, x2));
+            //Console.WriteLine(Pow(x1, x2));
+            //Console.WriteLine(Factorial(x));
         }
 
 
@@ -36,20 +69,20 @@ namespace CW_MathOperations
             return x1 / x2;
         }
 
-        static double Pow(double x, int pow) // возведение в степень
+        static double Pow(double x, long pow) // возведение в степень
         {
             double result = x;
 
             if (pow == 0)
                 return 1;
 
-            for (int i = 1; i < pow; i++)
+            for (long i = 1; i < pow; i++)
                 result *= x;
 
             return result;
         }
 
-        static int Factorial(int x) // факториал
+        static long Factorial(long x) // факториал
         {
             if (x == 0)
                 return 1;
