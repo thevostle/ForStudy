@@ -5,7 +5,9 @@ def f (x, y):
         return 2 * x * f(x, y-1) + y - 1
 
 def main():
-    print(f(1, 5))
+    x = int(input("Введите X: "))
+    y = int(input("Введите Y: "))
+    print(f(x, y))
     input()
 
 if __name__ == '__main__':
