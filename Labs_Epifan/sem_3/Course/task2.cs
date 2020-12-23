@@ -6,19 +6,20 @@ namespace Epifan_Course_2
     {
         static void Main(string[] args)
         {
-            int m = 3;
+            // размер матрицы
+            int m = 3; 
             int n = 5;
 
-            double[,] a = { { 0.5, 1, 2, 4.6, 3 }, { 7, 4, 5, 4.3, 7}, { 6, 6, 7, 3.2, 4} };
+            double[,] a = { { 0.5, 1, 2, 4.6, 3 }, { 7, 4, 5, 4.3, 7}, { 6, 6, 7, 3.2, 4} }; // сама матрица
 
-            int[] mins = new int[m];
+            double[] mins = new double[m]; // массив для всех наименьших в строках чисел (у нас m строк, значит m чисел)
 
-            double minInGrid = float.MaxValue;
+            double minInGrid = float.MaxValue; // делаем число максимально большим, чтобы числа в матрицы точно были меньше
             
-            for (int y = 0; y < m; y++)
+            for (int y = 0; y < m; y++) // просматриваем каждый ряд
             {
-                int minX = 0;
-                minInGrid = a[y, 0];
+                double minX = 0; // наименьшее число в строке
+                minInGrid = a[y, 0]; // 
                 for (int x = 0; x < n; x++)
                 {
                     if (a[y, x] < minInGrid)
@@ -30,7 +31,7 @@ namespace Epifan_Course_2
                 mins[y] = minX;
             }
 
-            foreach (int i in mins)
+            foreach (double i in mins)
                 Console.WriteLine(i);
         }
     }
