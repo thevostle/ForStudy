@@ -17,7 +17,7 @@ namespace Epifan_Course_4
             Console.WriteLine("\n"); // новая строка
             for (int i = 1; i < a.Length-1; i++) // просматриваем все числа
                 if (a[i - 1] < a[i] && a[i] < a[i + 1]) // если число больше предыдущего и меньше следующего...
-                    Console.WriteLine(a[i]); // выводим его
+                    Console.WriteLine(i); // выводим его ИНДЕКС
         }
     }
 }
