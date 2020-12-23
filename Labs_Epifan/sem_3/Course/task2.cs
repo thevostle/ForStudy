@@ -18,21 +18,17 @@ namespace Epifan_Course_2
             
             for (int y = 0; y < m; y++) // просматриваем каждый ряд
             {
-                double minX = 0; // наименьшее число в строке
-                minInGrid = a[y, 0]; // 
-                for (int x = 0; x < n; x++)
-                {
-                    if (a[y, x] < minInGrid)
-                    {
-                        minInGrid = a[y, x];
-                        minX = x;
-                    }
-                }
-                mins[y] = minX;
+                minInGrid = a[y, 0]; // наименьшее число в строке
+                
+                for (int x = 0; x < n; x++) // просматриваем каждый столбец
+                    if (a[y, x] < minInGrid) // если число в матрице меньше найденного наименьшего...
+                        minInGrid = a[y, x]; // обновляем найденное наименьшее
+                
+                mins[y] = minInGrid; // добавляем найденное наименьшее в массив mins
             }
 
-            foreach (double i in mins)
-                Console.WriteLine(i);
+            foreach (double i in mins) // берем каждое число из mins
+                Console.WriteLine(i); // и выводим его
         }
     }
 }
