@@ -13,7 +13,7 @@ namespace Epifan_Course_1
 
             Array.Copy(z, 0, maxNums, 0, k); // помещаем элементы z c нулевого в maxNums в индексы c 0 по k 
 
-            for (int i = 0; i < z.Length; i++) // просматриваем все числа в z
+            for (int i = k; i < z.Length; i++) // просматриваем все числа в z
             {
                 Array.Sort(maxNums); // сортируем maxNums
                 if (z[i] > maxNums[0]) // если элемент из z больше, чем наименьший элемент maxNums...
