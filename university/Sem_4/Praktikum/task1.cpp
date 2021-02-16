@@ -8,7 +8,7 @@ int main()
     std::cin >> a >> b >> c >> Xs >> Xe >> Xd;
 
     std::cout << std::endl;
-    if (((((int)a && (int)b) ^ (int)c) & 1) == 0)
+    if (((((int)a & (int)b) ^ (int)c) & 1) == 0)
         f((int)a, (int)b, (int)c, Xs, Xe, Xd);
     else
         f(a, b, c, Xs, Xe, Xd);
