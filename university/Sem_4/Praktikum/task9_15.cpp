@@ -1,3 +1,5 @@
+// задача 9 с использованием string, то есть можно сдать и как 15
+
 #include <string>
 #include <fstream>
 #include <vector>
