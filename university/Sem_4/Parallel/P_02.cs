@@ -1,17 +1,17 @@
 // С# с использованием библиотеки Task Parallel Library
 // сортирует по возрастанию одномерный массив чисел типа double методом вставок 
 
-// параллельная реализация не работает, остальное норм
-
 using System;
 using System.Threading;
 using System.Threading.Tasks;
+using System.Collections;
 
 namespace P_02_CSharp_TPL
 {
     class Program
     {
         const int arrLen = 50000;
+        const int maxNum = 10000;
 
         // для измерения продолжительности
         static System.Diagnostics.Stopwatch sw = new System.Diagnostics.Stopwatch();
@@ -32,37 +32,61 @@ namespace P_02_CSharp_TPL
             return result;
         }
 
-        static void SortP_Realization(double[] arraySort, ParallelLoopState pls)
+        static ArrayList SortP_Realization(ArrayList arraySort)
         {
-            double[] result = new double[arraySort.Length];
-            for (int i = 0; i < arrLen; i++)
+            double[] result = new double[arraySort.Count];
+            for (int i = 0; i < arraySort.Count; i++)
             {
                 int j = i;
-                while (j > 0 && result[j - 1] > arraySort[i])
+                while (j > 0 && Convert.ToDouble(result[j-1]) > Convert.ToDouble(arraySort[i]))
                 {
                     result[j] = result[j - 1];
                     j--;
                 }
-                result[j] = arraySort[i];
+                result[j] = Convert.ToDouble(arraySort[i]);
             }
+            ArrayList resultArr = new ArrayList();
+            for (int i = 0; i < arraySort.Count; i++)
+                resultArr.Add(result[i]);
+            return resultArr;
         }
 
-        static double[] SortP(double[] arraySort)
+        static ArrayList SortP(ArrayList arraySort)
         {
-            double[] result = new double[arraySort.Length];
-            //ParallelLoopResult res = Parallel.For(0, arrLen, SortP_Realization);
+            ArrayList arr1 = new ArrayList();
+            ArrayList arr2 = new ArrayList();
+            for (int i = 0; i < arraySort.Count; i++)
+            {
+                double num = Convert.ToDouble(arraySort[i]);
+                if (num < maxNum / 2)
+                    arr1.Add(num);
+                else
+                    arr2.Add(num);
+            }
+
+            Task<ArrayList>[] taskArray = { Task<ArrayList>.Factory.StartNew(() => SortP_Realization(arr1)),
+                                            Task<ArrayList>.Factory.StartNew(() => SortP_Realization(arr2))};
+
+            ArrayList result = taskArray[0].Result;
+            for (int i = 0; i < taskArray[1].Result.Count; i++)
+                result.Add(taskArray[1].Result[i]);
             return result;
         }
 
         static void Main(string[] args)
         {
+            // создаем набор данных
             Random rnd = new Random();
             double[] array = new double[arrLen];
             for (int i = 0; i < arrLen; i++) 
-                array[i] = rnd.Next(0, 1000000);
-
-            double[] arrayP = new double[arrLen]; // сохраняем массив для параллельной сортировки
+                array[i] = rnd.Next(0, maxNum);
+            
+            // сохраняем массив для параллельной сортировки
+            double[] arrayP = new double[arrLen]; 
             array.CopyTo(arrayP, 0);
+            ArrayList arr = new ArrayList();
+            for (int i = 0; i < arrLen; i++)
+                arr.Add(arrayP[i]);
 
             // запускаем последовательную реализацию
             sw.Restart();
@@ -70,15 +94,17 @@ namespace P_02_CSharp_TPL
             long TS = sw.ElapsedMilliseconds;
             Console.WriteLine("\nTime: {0} ms", TS);
 
-            // запускаем последовательную реализацию
+            // запускаем параллельную реализацию
             sw.Restart();
-            double[] sortedP = SortP(array);
+            ArrayList resArr = SortP(arr);
             TS = sw.ElapsedMilliseconds;
             Console.WriteLine("\nTime: {0} ms", TS);
 
             // вывод отсортированного массива
             //for (int i = 0; i < arrLen; i++)
-            //    Console.WriteLine(Convert.ToString(sorted[i]));
+            //    Console.WriteLine("{0}", Convert.ToString(sorted[i]));
+            //for (int i = 0; i < arrLen; i++)
+            //    Console.WriteLine(resArr[i]);
         }
     }
 }
