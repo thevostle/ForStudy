@@ -16,23 +16,8 @@ namespace P_02_CSharp_TPL
         // для измерения продолжительности
         static System.Diagnostics.Stopwatch sw = new System.Diagnostics.Stopwatch();
 
-        static double[] Sort(double[] arraySort)
-        {
-            double[] result = new double[arraySort.Length];
-            for (int i = 0; i < arraySort.Length; i++)
-            {
-                int j = i;
-                while (j > 0 && result[j - 1] > arraySort[i])
-                {
-                    result[j] = result[j - 1];
-                    j--;
-                }
-                result[j] = arraySort[i];
-            }
-            return result;
-        }
-
-        static ArrayList SortP_Realization(ArrayList arraySort)
+        // однопоточная сортировка вставками
+        static ArrayList Sort(ArrayList arraySort)
         {
             double[] result = new double[arraySort.Count];
             for (int i = 0; i < arraySort.Count; i++)
@@ -51,8 +36,10 @@ namespace P_02_CSharp_TPL
             return resultArr;
         }
 
+        // многопоточная сортировка вставками
         static ArrayList SortP(ArrayList arraySort)
         {
+            // разделяем один список на 2 части (числа меньше и больше якорного элемента)
             ArrayList arr1 = new ArrayList();
             ArrayList arr2 = new ArrayList();
             for (int i = 0; i < arraySort.Count; i++)
@@ -64,47 +51,63 @@ namespace P_02_CSharp_TPL
                     arr2.Add(num);
             }
 
-            Task<ArrayList>[] taskArray = { Task<ArrayList>.Factory.StartNew(() => SortP_Realization(arr1)),
-                                            Task<ArrayList>.Factory.StartNew(() => SortP_Realization(arr2))};
+            // сортируем их последовательным методом одновременно на нескольких потоках
+            Task<ArrayList>[] taskArray = { Task<ArrayList>.Factory.StartNew(() => Sort(arr1)),
+                                            Task<ArrayList>.Factory.StartNew(() => Sort(arr2))};
 
+            // объединяем обратно в один список
             ArrayList result = taskArray[0].Result;
             for (int i = 0; i < taskArray[1].Result.Count; i++)
                 result.Add(taskArray[1].Result[i]);
+
             return result;
+        }
+
+        // array - выводимый список
+        // range1/range2 - кол-во выводимых чисел из начала и конца списка
+        // name - название списка
+        static void PrintArray(ArrayList array, int range1, int range2, string name)
+        {
+            Console.Write("{0}: ", name);
+            for (int i = 0; i < range1 - 1; i++)
+                Console.Write("{0}, ", array[i]);
+            Console.Write("{0}", array[range1 - 1]);
+            Console.Write(" ... ");
+            for (int i = array.Count - range2; i < array.Count - 1; i++)
+                Console.Write("{0}, ", array[i]);
+            Console.Write("{0}\n", array[array.Count - 1]);
         }
 
         static void Main(string[] args)
         {
             // создаем набор данных
             Random rnd = new Random();
-            double[] array = new double[arrLen];
-            for (int i = 0; i < arrLen; i++) 
-                array[i] = rnd.Next(0, maxNum);
-            
-            // сохраняем массив для параллельной сортировки
-            double[] arrayP = new double[arrLen]; 
-            array.CopyTo(arrayP, 0);
-            ArrayList arr = new ArrayList();
+            double[] originArr = new double[arrLen];
             for (int i = 0; i < arrLen; i++)
-                arr.Add(arrayP[i]);
+                originArr[i] = rnd.Next(0, maxNum);
+       
+            // сохраняем копию массива для сортировки    
+            ArrayList arr_copy = new ArrayList();
+            for (int i = 0; i < arrLen; i++)
+                arr_copy.Add(originArr[i]);
 
             // запускаем последовательную реализацию
             sw.Restart();
-            double[] sorted = Sort(array);
+            ArrayList resArr1 = Sort(arr_copy);
             long TS = sw.ElapsedMilliseconds;
-            Console.WriteLine("\nTime: {0} ms", TS);
+            Console.WriteLine("Отсортирован последовательно за {0} мс", TS);
 
             // запускаем параллельную реализацию
             sw.Restart();
-            ArrayList resArr = SortP(arr);
+            ArrayList resArr2 = SortP(arr_copy);
             TS = sw.ElapsedMilliseconds;
-            Console.WriteLine("\nTime: {0} ms", TS);
+            Console.WriteLine("Отсортирован параллельно за {0} мс", TS);
 
-            // вывод отсортированного массива
-            //for (int i = 0; i < arrLen; i++)
-            //    Console.WriteLine("{0}", Convert.ToString(sorted[i]));
-            //for (int i = 0; i < arrLen; i++)
-            //    Console.WriteLine(resArr[i]);
+            // вывод
+            Console.WriteLine();
+            PrintArray(arr_copy, 5, 5, "Оригинальный массив");
+            PrintArray(resArr1, 5, 5, "Отсортированный последовательно");
+            PrintArray(resArr2, 5, 5, "Отсортированный параллельно");
         }
     }
 }
